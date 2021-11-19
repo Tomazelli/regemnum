@@ -1,0 +1,36 @@
+{% load static %}
+<section id="team" class="section-padding bg-gray">
+      <div class="container">
+        <div class="section-header text-center">
+          <h2 class="section-title wow fadeInDown" data-wow-delay="0.3s">Conheça nossa equipe!</h2>
+          <div class="shape wow fadeInDown" data-wow-delay="0.3s"></div>
+        </div>
+        <div class="row">
+
+          {% for m in team %}
+          <div class="col-lg-6 col-md-12 col-xs-12">
+            <!-- Team Item Starts -->
+            <div class="team-item wow fadeInRight" data-wow-delay="0.2s">
+              <div class="team-img">
+                <img class="img-fluid" src="{{ m.image.thumb.url }} " alt="{{ m.name }}">
+              </div>
+              <div class="content">
+                <div class="info-text">
+                  <h3><a href="#">{{ m.name }}</a></h3>
+                  <p>{{ m.role }}</p>
+                </div>
+                <p>{{ m.bio }}</p>
+                <ul class="social-icons">
+                  <li><a href="{{ m.facebook }}"><i class="lni-facebook-filled" aria-hidden="true"></i></a></li>
+                  <li><a href="{{ m.twitter }}"><i class="lni-twitter-filled" aria-hidden="true"></i></a></li>
+                  <li><a href="{{ m.instagram }}"><i class="lni-instagram-filled" aria-hidden="true"></i></a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- Team Item Ends -->
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </section>
