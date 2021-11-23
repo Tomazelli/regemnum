@@ -22,7 +22,7 @@ class Base(models.Model):
 class Agencia(Base):
     nome = models.CharField('Nome', max_length=200)
     sigla = models.CharField('Sigla', max_length=20)
-    
+
     class Meta:
         verbose_name = 'Agencia'
         verbose_name_plural = 'Agencias'
@@ -77,11 +77,16 @@ class Monitoracao(Base):
 
 class MecanismoDeParticipacao(Base):
     # FK
-    objetivoParticipacao = models.ForeignKey('core.ObjetivoParticipacao', verbose_name='Objetivo da participação', on_delete=models.CASCADE)
-    agencia = models.ForeignKey('core.Agencia', verbose_name='Agencia', on_delete=models.CASCADE)
-    tipoDadoPelaAgencia = models.ForeignKey('core.TipoDadoPelaAgencia', verbose_name='Tipo dado pela agencia', on_delete=models.CASCADE)
-    instrumentoDeParticipacao = models.ForeignKey('core.InstrumentoDeParticipacao', verbose_name='Instrumento de participação', on_delete=models.CASCADE)
-    monitoracao = models.ForeignKey('core.Monitoracao', verbose_name='Monitorar', on_delete=models.CASCADE)
+    objetivoParticipacao = models.ForeignKey(
+        'core.ObjetivoParticipacao', verbose_name='Objetivo da participação', on_delete=models.CASCADE)
+    agencia = models.ForeignKey(
+        'core.Agencia', verbose_name='Agencia', on_delete=models.CASCADE)
+    tipoDadoPelaAgencia = models.ForeignKey(
+        'core.TipoDadoPelaAgencia', verbose_name='Tipo dado pela agencia', on_delete=models.CASCADE)
+    instrumentoDeParticipacao = models.ForeignKey(
+        'core.InstrumentoDeParticipacao', verbose_name='Instrumento de participação', on_delete=models.CASCADE)
+    monitoracao = models.ForeignKey(
+        'core.Monitoracao', verbose_name='Monitorar', on_delete=models.CASCADE)
     #
 
     # temDocumentos
@@ -93,21 +98,27 @@ class MecanismoDeParticipacao(Base):
     #
 
     # datas
-    dataInicialContribuicoes = models.DateField('Data inicial das Contribuições (AAAA-MM-DD)')
-    dataFinalContribuicoes = models.DateField('Data final das Contribuições (AAAA-MM-DD)')
+    dataInicialContribuicoes = models.DateField(
+        'Data inicial das Contribuições (AAAA-MM-DD)')
+    dataFinalContribuicoes = models.DateField(
+        'Data final das Contribuições (AAAA-MM-DD)')
     dataConvocacao = models.DateField('Data da Convocação (AAAA-MM-DD)')
-    dataUltimaAtualizacao = models.DateField('Atualização (AAAA-MM-DD)', auto_now=True)
+    dataUltimaAtualizacao = models.DateField(
+        'Atualização (AAAA-MM-DD)', auto_now=True)
     dataProdutoFinal = models.DateField('Data produto final (AAAA-MM-DD)')
     #
 
     # demais campos
-    nomenclaturaDadaPelaAgencia = models.CharField('Nomenclatura dada pela agencia', max_length=200)
+    nomenclaturaDadaPelaAgencia = models.CharField(
+        'Nomenclatura dada pela agencia', max_length=200)
     ementa = models.TextField('Ementa')
     indexacaoSubtema = models.CharField('Indexação subtema', max_length=200)
     situacao = models.CharField('Situação', max_length=20)
-    quantidadeDeParticipantes = models.PositiveIntegerField('Quantidade de participantes')
+    quantidadeDeParticipantes = models.PositiveIntegerField(
+        'Quantidade de participantes')
     produtoFinalOQue = models.TextField('Produto final o que')
-    pontosDeAtencao = models.TextField('Pontos de atenção para o regulação em números')
+    pontosDeAtencao = models.TextField(
+        'Pontos de atenção para o regulação em números')
 
     class Meta:
         verbose_name = 'Mecanismo'
@@ -130,8 +141,10 @@ class IndexacaoTema(Base):
 
 class IntermediarioTemaMecanismo(Base):
     # FK
-    mecanismo = models.ForeignKey('core.MecanismoDeParticipacao', verbose_name='Mecanismo', on_delete=models.CASCADE)
-    indexacaoTema = models.ForeignKey('core.IndexacaoTema', verbose_name='Indexacao tema', on_delete=models.CASCADE)
+    mecanismo = models.ForeignKey(
+        'core.MecanismoDeParticipacao', verbose_name='Mecanismo', on_delete=models.CASCADE)
+    indexacaoTema = models.ForeignKey(
+        'core.IndexacaoTema', verbose_name='Indexacao tema', on_delete=models.CASCADE)
     #
 
 
@@ -148,8 +161,10 @@ class TipoDocumento(Base):
 
 class Documento(Base):
     # FK
-    mecanismo = models.ForeignKey('core.MecanismoDeParticipacao', verbose_name='Mecanismo', on_delete=models.CASCADE)
-    tipoDocumento = models.ForeignKey('core.TipoDocumento', verbose_name='Tipo do documento', on_delete=models.CASCADE)
+    mecanismo = models.ForeignKey(
+        'core.MecanismoDeParticipacao', verbose_name='Mecanismo', on_delete=models.CASCADE)
+    tipoDocumento = models.ForeignKey(
+        'core.TipoDocumento', verbose_name='Tipo do documento', on_delete=models.CASCADE)
     #
 
     # demais campos
@@ -170,7 +185,8 @@ class CategoriasParticipante(Base):
 
 
 class SubCategoriasParticipante(Base):
-    subCategoria = models.CharField('Sub categoria participante', max_length=120)
+    subCategoria = models.CharField(
+        'Sub categoria participante', max_length=120)
 
     class Meta:
         verbose_name = 'Subcategoria'
@@ -181,7 +197,8 @@ class SubCategoriasParticipante(Base):
 
 
 class SubSubCategoriasParticipante(Base):
-    subSubCategoria = models.CharField('Sub sub categoria participante', max_length=120)
+    subSubCategoria = models.CharField(
+        'Sub sub categoria participante', max_length=120)
 
     class Meta:
         verbose_name = 'SubSubCategoria'
@@ -192,7 +209,8 @@ class SubSubCategoriasParticipante(Base):
 
 
 class SubSubSubCategoriasParticipante(Base):
-    subSubSubCategoria = models.CharField('Sub sub sub categoria participante', max_length=120)
+    subSubSubCategoria = models.CharField(
+        'Sub sub sub categoria participante', max_length=120)
 
     class Meta:
         verbose_name = 'SubSubSubCategoria'
@@ -204,11 +222,16 @@ class SubSubSubCategoriasParticipante(Base):
 
 class Contribuinte(Base):
     # FK
-    categoria = models.ForeignKey('core.CategoriasParticipante', verbose_name='Categoria participante', on_delete=models.CASCADE)
-    subCategoria = models.ForeignKey('core.SubCategoriasParticipante', verbose_name='Subcategoria participante', on_delete=models.CASCADE)
-    subSubCategoria = models.ForeignKey('core.SubSubCategoriasParticipante', verbose_name='Sub sub categoria participante', on_delete=models.CASCADE)
-    subSubSubCategoria = models.ForeignKey('core.SubSubSubCategoriasParticipante', verbose_name='Sub sub sub categoria participante', on_delete=models.CASCADE)
-    agencia = models.ForeignKey('core.Agencia', verbose_name='Agencia', on_delete=models.CASCADE)
+    categoria = models.ForeignKey('core.CategoriasParticipante',
+                                  verbose_name='Categoria participante', on_delete=models.CASCADE)
+    subCategoria = models.ForeignKey('core.SubCategoriasParticipante',
+                                     verbose_name='Subcategoria participante', on_delete=models.CASCADE)
+    subSubCategoria = models.ForeignKey('core.SubSubCategoriasParticipante',
+                                        verbose_name='Sub sub categoria participante', on_delete=models.CASCADE)
+    subSubSubCategoria = models.ForeignKey('core.SubSubSubCategoriasParticipante',
+                                           verbose_name='Sub sub sub categoria participante', on_delete=models.CASCADE)
+    agencia = models.ForeignKey(
+        'core.Agencia', verbose_name='Agencia', on_delete=models.CASCADE)
     #
 
     nome = models.CharField('Nome do contribuinte', max_length=200)
@@ -226,21 +249,27 @@ class Contribuinte(Base):
 
 class ContribuicoesPorParticipante(Base):
     # FK
-    mecanismo = models.ForeignKey('core.MecanismoDeParticipacao', verbose_name='Mecanismo', on_delete=models.CASCADE)
-    contribuinte = models.ForeignKey('core.Contribuinte', verbose_name='Contribuinte', on_delete=models.CASCADE)
+    mecanismo = models.ForeignKey(
+        'core.MecanismoDeParticipacao', verbose_name='Mecanismo', on_delete=models.CASCADE)
+    contribuinte = models.ForeignKey(
+        'core.Contribuinte', verbose_name='Contribuinte', on_delete=models.CASCADE)
     #
 
     # demais campos
-    pessoaFisica = models.CharField('Nome das pessoas fisicas', max_length=200, default='#')
-    linkContribuicao = models.CharField('Link das contribuições', max_length=200)
-    linkResultado = models.CharField('Link para os resultados', max_length=200, default='#')
-    linkAnexo = models.CharField('Link para o anexo', max_length=200, default='#')
+    pessoaFisica = models.CharField(
+        'Nome das pessoas fisicas', max_length=200, default='#')
+    linkContribuicao = models.CharField(
+        'Link das contribuições', max_length=200)
+    linkResultado = models.CharField(
+        'Link para os resultados', max_length=200, default='#')
+    linkAnexo = models.CharField(
+        'Link para o anexo', max_length=200, default='#')
     pontosDeAtencao = models.TextField('Pontos de atenção', default='#')
     #
 
     class Meta:
         verbose_name = 'ContribuicaoPorParticipante'
-        verbose_name_plural = '>>>Comece preenchendo por aqui!<<<'
+        verbose_name_plural = '>>Comece preenchendo por aqui!<<'
 
     def __str__(self):
         return str(self.pk)
@@ -248,7 +277,8 @@ class ContribuicoesPorParticipante(Base):
 
 class Manifestacoes(Base):
     # FK
-    contribuicoes = models.ForeignKey('core.ContribuicoesPorParticipante', verbose_name='idContribuicoes', on_delete=models.CASCADE)
+    contribuicoes = models.ForeignKey(
+        'core.ContribuicoesPorParticipante', verbose_name='idContribuicoes', on_delete=models.CASCADE)
     #
 
     # demais campos
@@ -271,7 +301,8 @@ class Manifestacoes(Base):
 
 class DocumentoManifestacao(Base):
     # FK
-    manifestacao = models.ForeignKey('core.Manifestacoes', verbose_name='Manifestação', on_delete=models.CASCADE)
+    manifestacao = models.ForeignKey(
+        'core.Manifestacoes', verbose_name='Manifestação', on_delete=models.CASCADE)
     #
 
     linkDocumento = models.CharField('Link do documento', max_length=200)
@@ -294,7 +325,8 @@ class Role(Base):
 
 class Member(Base):
     name = models.CharField('Nome', max_length=100)
-    role = models.ForeignKey('core.Role', verbose_name='Cargo', on_delete=models.CASCADE)
+    role = models.ForeignKey(
+        'core.Role', verbose_name='Cargo', on_delete=models.CASCADE)
     bio = models.TextField('Biografia', max_length=200)
     #image = StdImageField('Imagem', upload_to='team', variations={'thumb': {'width': 480, 'height': 480, 'crop': True}})
     image = models.CharField('Imagem', max_length=100)
