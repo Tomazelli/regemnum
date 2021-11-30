@@ -123,6 +123,7 @@ class MecanismoDeParticipacao(Base):
     class Meta:
         verbose_name = 'Mecanismo'
         verbose_name_plural = 'Mecanismos'
+        unique_together = (('agencia', 'dataInicialContribuicoes', 'nomenclaturaDadaPelaAgencia'),)
 
     def __str__(self):
         return self.nomenclaturaDadaPelaAgencia
