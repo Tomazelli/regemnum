@@ -21,18 +21,18 @@ class Base(models.Model):
 
 class Agencia(Base):
     nome = models.CharField('Nome', max_length=200)
-    sigla = models.CharField('Sigla', max_length=20)
+    sigla = models.CharField('Sigla', max_length=20, unique=True)
 
     class Meta:
         verbose_name = 'Agencia'
         verbose_name_plural = 'Agencias'
 
     def __str__(self):
-        return self.nome
+        return self.sigla
 
 
 class ObjetivoParticipacao(Base):
-    objetivo = models.TextField('Objetivo')
+    objetivo = models.TextField('Objetivo', unique=True)
 
     class Meta:
         verbose_name = 'Objetivo'
@@ -43,7 +43,7 @@ class ObjetivoParticipacao(Base):
 
 
 class TipoDadoPelaAgencia(Base):
-    tipo = models.CharField('Tipo', max_length=200)
+    tipo = models.CharField('Tipo', max_length=200, unique=True)
 
     class Meta:
         verbose_name = 'Tipo'
@@ -54,7 +54,7 @@ class TipoDadoPelaAgencia(Base):
 
 
 class InstrumentoDeParticipacao(Base):
-    instrumentoDeParticipacao = models.CharField('Nome', max_length=100)
+    instrumentoDeParticipacao = models.CharField('Nome', max_length=100, unique=True)
 
     class Meta:
         verbose_name = 'Instrumento'
@@ -65,7 +65,7 @@ class InstrumentoDeParticipacao(Base):
 
 
 class Monitoracao(Base):
-    monitorar = models.CharField('Monitorar', max_length=10, default='#')
+    monitorar = models.CharField('Monitorar', max_length=100, default='#', unique=True)
 
     class Meta:
         verbose_name = 'Monitorar'
@@ -130,11 +130,12 @@ class MecanismoDeParticipacao(Base):
 
 
 class IndexacaoTema(Base):
-    indexacaoTema = models.CharField('Indexacao tema', max_length=10)
+    indexacaoTema = models.CharField('Indexacao tema', max_length=10, unique=True)
 
     class Meta:
         verbose_name = 'indexacaoTema'
         verbose_name_plural = 'indexacoesTema'
+
 
     def __str__(self):
         return self.indexacaoTema
@@ -148,9 +149,12 @@ class IntermediarioTemaMecanismo(Base):
         'core.IndexacaoTema', verbose_name='Indexacao tema', on_delete=models.CASCADE)
     #
 
+    class Meta:
+        unique_together = (('mecanismo', 'indexacaoTema'),)
+
 
 class TipoDocumento(Base):
-    tipoDocumento = models.CharField('Tipo do documento', max_length=100)
+    tipoDocumento = models.CharField('Tipo do documento', max_length=100, unique=True)
 
     class Meta:
         verbose_name = 'TipoDocumento'
@@ -173,9 +177,12 @@ class Documento(Base):
     dataDocumento = models.DateField('Data do documento')
     #
 
+    class Meta:
+        unique_together = (('mecanismo', 'tipoDocumento', 'dataDocumento'),)
+
 
 class CategoriasParticipante(Base):
-    categoria = models.CharField('Categoria participante', max_length=120)
+    categoria = models.CharField('Categoria participante', max_length=120, unique=True)
 
     class Meta:
         verbose_name = 'Categoria'
@@ -187,7 +194,7 @@ class CategoriasParticipante(Base):
 
 class SubCategoriasParticipante(Base):
     subCategoria = models.CharField(
-        'Sub categoria participante', max_length=120)
+        'Sub categoria participante', max_length=120, unique=True)
 
     class Meta:
         verbose_name = 'Subcategoria'
@@ -199,7 +206,7 @@ class SubCategoriasParticipante(Base):
 
 class SubSubCategoriasParticipante(Base):
     subSubCategoria = models.CharField(
-        'Sub sub categoria participante', max_length=120)
+        'Sub sub categoria participante', max_length=120, unique=True)
 
     class Meta:
         verbose_name = 'SubSubCategoria'
@@ -211,7 +218,7 @@ class SubSubCategoriasParticipante(Base):
 
 class SubSubSubCategoriasParticipante(Base):
     subSubSubCategoria = models.CharField(
-        'Sub sub sub categoria participante', max_length=120)
+        'Sub sub sub categoria participante', max_length=120, unique=True)
 
     class Meta:
         verbose_name = 'SubSubSubCategoria'

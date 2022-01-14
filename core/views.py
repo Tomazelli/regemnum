@@ -32,3 +32,19 @@ class Error404View(TemplateView):
 
 class Error500View(TemplateView):
     template_name = '500.html'
+
+
+class CsvUploadView(FormView):
+    template_name = 'change_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CsvUploadView, self).get_context_data(**kwargs)
+        return context
+
+    def form_valid(self, form, *args, **kwargs):
+        messages.success(self.request, 'CSV salvo com sucesso!')
+        return super(CsvUploadView, self).form_valid(form, *args, **kwargs)
+
+    def form_invalid(self, form, *args, **kwargs):
+        messages.error(self.request, 'Erro ao enviar salvar o CSV! :(')
+        return super(CsvUploadView, self).form_invalid(form, *args, **kwargs)

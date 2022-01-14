@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+
+<div class="container">
+    {% if user != 'AnonymousUser' %}
+
+        <h1><br/>Equipe</h1>
+        {% bootstrap_messages %}
+
+        <form action="{% url 'csv-upload' %}" method="post" class="form" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            {% endbuttons %}
+        </form>
+    {% else %}
+        <h1><br/>Você precisa estar logado, para acessar esta pagina!</h1>
+    {% endif %}
+</div>
+
+{% endblock %}
