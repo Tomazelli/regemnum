@@ -43,7 +43,7 @@ class ObjetivoParticipacao(Base):
 
 
 class TipoDadoPelaAgencia(Base):
-    tipo = models.CharField('Tipo', max_length=200, unique=True)
+    tipo = models.CharField('Tipo', max_length=201, unique=True)
 
     class Meta:
         verbose_name = 'Tipo'
@@ -110,20 +110,22 @@ class MecanismoDeParticipacao(Base):
 
     # demais campos
     nomenclaturaDadaPelaAgencia = models.CharField(
-        'Nomenclatura dada pela agencia', max_length=200)
+        'Nomenclatura dada pela agencia', max_length=202)
     ementa = models.TextField('Ementa')
-    indexacaoSubtema = models.CharField('Indexação subtema', max_length=200)
+    indexacaoSubtema = models.CharField('Indexação subtema', max_length=2001)
     situacao = models.CharField('Situação', max_length=20)
     quantidadeDeParticipantes = models.PositiveIntegerField(
         'Quantidade de participantes')
     produtoFinalOQue = models.TextField('Produto final o que')
     pontosDeAtencao = models.TextField(
         'Pontos de atenção para o regulação em números')
+    antigoIdInterno = models.TextField(
+        'ID Interno gerado no antigo sistemas de dados armazenados em CSV (OPCIONAL)', blank=True, null=True, default=None)
 
     class Meta:
         verbose_name = 'Mecanismo'
         verbose_name_plural = 'Mecanismos'
-        unique_together = (('agencia', 'dataInicialContribuicoes', 'nomenclaturaDadaPelaAgencia'),)
+        unique_together = (('agencia', 'dataInicialContribuicoes', 'nomenclaturaDadaPelaAgencia', 'ementa'),)
 
     def __str__(self):
         return self.nomenclaturaDadaPelaAgencia
@@ -194,7 +196,7 @@ class CategoriasParticipante(Base):
 
 class SubCategoriasParticipante(Base):
     subCategoria = models.CharField(
-        'Sub categoria participante', max_length=120, unique=True)
+        'Sub categoria participante', max_length=1210, unique=True)
 
     class Meta:
         verbose_name = 'Subcategoria'
@@ -206,7 +208,7 @@ class SubCategoriasParticipante(Base):
 
 class SubSubCategoriasParticipante(Base):
     subSubCategoria = models.CharField(
-        'Sub sub categoria participante', max_length=120, unique=True)
+        'Sub sub categoria participante', max_length=122, unique=True)
 
     class Meta:
         verbose_name = 'SubSubCategoria'
@@ -218,7 +220,7 @@ class SubSubCategoriasParticipante(Base):
 
 class SubSubSubCategoriasParticipante(Base):
     subSubSubCategoria = models.CharField(
-        'Sub sub sub categoria participante', max_length=120, unique=True)
+        'Sub sub sub categoria participante', max_length=123, unique=True)
 
     class Meta:
         verbose_name = 'SubSubSubCategoria'
@@ -242,14 +244,17 @@ class Contribuinte(Base):
         'core.Agencia', verbose_name='Agencia', on_delete=models.CASCADE)
     #
 
-    nome = models.CharField('Nome do contribuinte', max_length=200)
-    personalidade = models.CharField('Personalidade', max_length=3)
+    nome = models.CharField('Nome do contribuinte', max_length=204)
+    nomeUpper = models.CharField('Nome do contribuinte em caixa alta (capslocks)', max_length=204)
+    personalidade = models.CharField('Personalidade', max_length=4)
     entidadeRepresentativa = models.BooleanField('Entidade representativa')
     estatal = models.BooleanField('Estatal')
 
     class Meta:
         verbose_name = 'Contribuinte'
         verbose_name_plural = 'Contribuintes'
+        unique_together = (('categoria', 'subCategoria', 'subSubCategoria', 'subSubSubCategoria',
+                            'agencia', 'entidadeRepresentativa', 'nomeUpper', 'estatal', 'personalidade'),)
 
     def __str__(self):
         return self.nome
@@ -265,13 +270,13 @@ class ContribuicoesPorParticipante(Base):
 
     # demais campos
     pessoaFisica = models.CharField(
-        'Nome das pessoas fisicas', max_length=200, default='#')
+        'Nome das pessoas fisicas', max_length=205, default='#')
     linkContribuicao = models.CharField(
-        'Link das contribuições', max_length=200)
+        'Link das contribuições', max_length=206)
     linkResultado = models.CharField(
-        'Link para os resultados', max_length=200, default='#')
+        'Link para os resultados', max_length=207, default='#')
     linkAnexo = models.CharField(
-        'Link para o anexo', max_length=200, default='#')
+        'Link para o anexo', max_length=208, default='#')
     pontosDeAtencao = models.TextField('Pontos de atenção', default='#')
     #
 
@@ -313,8 +318,8 @@ class DocumentoManifestacao(Base):
         'core.Manifestacoes', verbose_name='Manifestação', on_delete=models.CASCADE)
     #
 
-    linkDocumento = models.CharField('Link do documento', max_length=200)
-    referencia = models.CharField('Referencia', max_length=200)
+    linkDocumento = models.CharField('Link do documento', max_length=209)
+    referencia = models.CharField('Referencia', max_length=210)
 
 
 #
@@ -335,7 +340,7 @@ class Member(Base):
     name = models.CharField('Nome', max_length=100)
     role = models.ForeignKey(
         'core.Role', verbose_name='Cargo', on_delete=models.CASCADE)
-    bio = models.TextField('Biografia', max_length=200)
+    bio = models.TextField('Biografia', max_length=211)
     #image = StdImageField('Imagem', upload_to='team', variations={'thumb': {'width': 480, 'height': 480, 'crop': True}})
     image = models.CharField('Imagem', max_length=100)
     facebook = models.CharField('Facebook', max_length=100, default='#')

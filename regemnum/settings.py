@@ -159,3 +159,5 @@ DEFAULT_FROM_EMAIL = 'contato@fusion.com.br'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGOUT_REDIRECT_URL = 'index'
+
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
